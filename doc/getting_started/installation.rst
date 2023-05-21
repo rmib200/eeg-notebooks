@@ -114,13 +114,13 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
    import os
    from eegnb import generate_save_fn
    from eegnb.devices.eeg import EEG
-   from eegnb.experiments.visual_n170 import n170
+   from eegnb.experiments import VisualN170
    from eegnb.analysis.utils import load_data
 
    # Define some variables
-   board_name = 'muse'
+   board_name = 'synthetic' #Can be changed to other board names, check brainflow API
    # board_name = 'cyton'
-   experiment = 'visual_n170'
+   experiment_name = 'visual_n170'
    session = 999
    subject = 999 # a 'very British number'
    record_duration=120
@@ -129,13 +129,22 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
    eeg_device = EEG(device=board_name)
 
    # Create output filename
-   save_fn = generate_save_fn(board_name, experiment, subject)
+   save_fn = generate_save_fn(board_name, experiment_name, subject, session_nb=session)
 
    # Run experiment
-   n170.present(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+   experiment = VisualN170(duration=record_duration, eeg=eeg_device, save_fn=save_fn)
+
+   ###################################################################################################  
+   # Run experiment
+   # ---------------------  
+   #
+   experiment.run()
+
+   # Saved csv location
+   print("Recording saved in", experiment.save_fn)
 
    # Load recorded data
-   raw = load_data(subject, session, board_names, experiment)
+   raw = load_data(subject, session, board_name, experiment_name)
 
 
 MUSE Requirements
