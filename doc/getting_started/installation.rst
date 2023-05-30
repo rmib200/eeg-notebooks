@@ -123,7 +123,7 @@ Start a jupyter notebooks session and you will be presented with the eeg-noteboo
    experiment_name = 'visual_n170'
    session = 999
    subject = 999 # a 'very British number'
-   record_duration=6
+   record_duration=120
 
    # Initiate EEG device
    eeg_device = EEG(device=board_name)
